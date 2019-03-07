@@ -69,7 +69,7 @@ def main():
         for dir in dirs:
             files = os.listdir(os.path.join(root, dir))
             match = re.search('(0004[0-9a-zA-Z]{10}00)', dir)
-            if (match and 'tmd') or (match and 'title.tmd') in files:
+            if (match and ('tmd' in files)) or (match and ('title.tmd' in files)):
                 this_title = {}
                 this_title['dir'] = os.path.join(os.path.abspath(root), dir)
                 this_title['id'] = match.group(1).upper()
@@ -115,7 +115,7 @@ def main():
     fail_count = len([t for t in titles if t['result'] == 1])
     ignore_count = len(titles) - (success_count + fail_count)
     print('=' * 40)
-    print("Created CIAs for {}/{} titles. Ignore {} titles.".format(success_count, fail_count+success_count, ignore_count))
+    print("Created CIAs for {}/{} titles. Ignored {} titles because they already have CIAs at the requested location.".format(success_count, fail_count+success_count, ignore_count))
     if fail_count > 0:
         print('=' * 40)
         print("Failed to create CIAs for the following folders:")
